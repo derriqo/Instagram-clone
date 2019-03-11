@@ -1,8 +1,7 @@
 from django.conf.urls import url,include
 from django.contrib import admin
-from users import views 
+from instap import views 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'register/',views.mwanzo,name='register')
     url(r'',include('instap.urls')),
 ]
