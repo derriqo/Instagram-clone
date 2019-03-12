@@ -32,7 +32,7 @@ The application allows the user to:
 ---
 Project is created with:
 * Python 3.6
-* Prerequisites:   *Pip *SQLAlchemy 
+* Prerequisites:   *Pip *SQLAlchemy *Pillow
 * Django
 
 ## Setup
