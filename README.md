@@ -77,7 +77,7 @@ As a user i want to be able to posted photos and view other people's photos .
 | --- | The Homepage is displayed  |
 | User Uploads Photo/Photos |  Photos are displayed to the user's followers |
 | User clicks on Follow to follow other users on the app| User is able to view the images posted by the person they are following |
-| Signout| Enables user to Exit the Application|
+| Signout| Enables user to Exit the Application |
 
 
 ## Support and contact details
