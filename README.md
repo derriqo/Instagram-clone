@@ -13,7 +13,7 @@
 
 ## General info
 ---
-As the Name suggests *Instagram Clone* is a clone of the popular photo app Instagram.
+ *Instagram Clone* is a clone of the popular photo Webapp Instagram.
 
 The application allows the user to:
 
