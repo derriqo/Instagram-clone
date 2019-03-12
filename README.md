@@ -67,7 +67,7 @@ To run this project, please follow the following instructions.
 ---
 
 **User Story**
-As a user i want to beable to posted photos and view other people's photos .
+As a user i want to be able to posted photos and view other people's photos .
 
 | Input | Output |
 | :---------------- | :---------------: | 
