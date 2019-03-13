@@ -4,23 +4,35 @@ from django.contrib import messages
 from .forms import UserRegisterForm
 from django.contrib.auth import login,authenticate
 
+
+@login_required(login_url='accounts/')
 def mwanzo(request):
     return render(request,'index.html')
-
-
 
 def registration(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
-        if form is valid():
+        if form.is_valid():
             form.save()
-            # new_user = form.save(commit=False)
-            # new_user.username = form.cleaned_data.get('username')
-            # new_user.raw_pass = form.clean_data.get('password1')
-            # new_user.save()
-            # authenticate(username=username,password=raw_pass)
-            messages.success(request,f'Account created for {username}!')
-            return redirect('login')
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Your account has been created! You are now able to log in')
+            return redirect('/accounts/login/')
     else:
         form = UserRegisterForm()
-    return render(request,'users/register.html',{'form':form})
+    return render(request,'registration/registration_form.html',{'form':form})  
+
+def search_users(request):
+
+    if 'searchItem' in request.GET and request.GET["searchItem"]:
+        search_term = request.GET.get("searchItem")
+        searched_users = Profile.search_by_username(search_term)
+        message = f"{search_term}"
+
+        return render(request, '',{"message":message,"profile": searched_users})
+
+    else:
+        message = "Cant find User"
+        return render(request, '',{"message":message})
+
+@login_required(login_url='accounts/')
+def profile(request,username)

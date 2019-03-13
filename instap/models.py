@@ -7,6 +7,11 @@ class Profile(models.Model):
     username = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
     phone_number = models.CharField(max_length = 10,blank = True)
+
+    @classmethod
+    def search_by_username(cls,search_term):
+        gram = cls.objects.filter(username__icontains=search_term)
+        return news
     
 class Image(models.Model):
     title = models.CharField(max_length=100)
