@@ -1,15 +1,20 @@
 {%extends "registration/base.html"%} {% load bootstrap3 %}
+{% load static %}
 {% block content %}
-<div class="container" style="text-align: center">
+
+<div class="container" style="text-align: center; margin: 5%;">
   <div class="row">
       <!-- Empty div -->
-      <div class="col-md-6"><H1>FREE SPACE</H1></div>
+      <div class="col-md-1"></div>
+      <div class="col-md-5"><img src="static/images/instapage.png" alt=""> </div>
         <div class="col-md-4">
           {% if form.errors %}
             <p> Some Information Might be Incorrect </p>
           {% endif %}
           <div class="panel panel-default">
-                <h3>Instagram</h3>
+              <div class='logname'>
+          <img class="logoname" src="{% static 'images/insta_text.svg' %}"/>
+          </div>
                 <p>Sign up to see photos and videos from your friends.</p>
               <form  action="/accounts/register/" method="post">
                 {% csrf_token %}
@@ -17,15 +22,18 @@
                 <div class="form-group">
                   <input type="submit" class="btn btn-primary btn-sm" value="Sign Up">
                 </div>
-
+                
                 <input type="hidden" name="next" value="{{next}}">
 
               </form>
-              <p class="container__terms">By signin up, you agree to our <br> <strong>Terms & Privacy Policy.</strong></p>
-          </div>
+              <p class="container__terms">By signin up, you agree to our <br> <strong>Terms</strong> ,<strong> Data Policy</strong> and <strong>Cookies Policy.</strong></p>
+              <p>Have An Account?  <a href="/accounts/login/" >Log In</a></p> 
+            </div>
 
           </div>
-
+          <div>
+              
+          </div>
       </div>
     <!-- empty div -->
     <div class="col-md-2"></div>

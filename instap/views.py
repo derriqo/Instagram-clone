@@ -5,8 +5,8 @@ from .forms import UserRegisterForm
 from django.contrib.auth import login,authenticate
 
 
-@login_required(login_url='accounts/')
-def mwanzo(request):
+@login_required(login_url='')
+def index(request):
     return render(request,'index.html')
 
 def registration(request):
@@ -16,7 +16,7 @@ def registration(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Your account has been created! You are now able to log in')
-            return redirect('/accounts/login/')
+            return redirect('login')
     else:
         form = UserRegisterForm()
     return render(request,'registration/registration_form.html',{'form':form})  
@@ -32,7 +32,13 @@ def search_users(request):
 
     else:
         message = "Cant find User"
-        return render(request, '',{"message":message})
+        return render(request, 'other-temp/search.html',{"message":message})
 
 @login_required(login_url='accounts/')
-def profile(request,username)
+def profile(request):
+    return render(request,'profile.html')
+
+def signout(request):
+    logout(request)
+    return redirect('login')
+
