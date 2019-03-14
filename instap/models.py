@@ -18,7 +18,7 @@ class Profile(models.Model):
     @classmethod
     def search_by_username(cls,search_term):
         gram = cls.objects.filter(user__username__icontains=search_term)
-        return news
+        return gram
     
 class Image(models.Model):
     author = models.ForeignKey(User,related_name='image',on_delete=models.CASCADE,null=True)
@@ -73,17 +73,6 @@ class Comment(models.Model):
     def __str__(self):
         return self.comment_itself
 
-
-# class Likes(models.Model):
-#     who_liked = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
-#     liked_image = models.ForeignKey(
-#     Image, on_delete=models.CASCADE, related_name='likes')
-
-#     def save_like(self):
-#         self.save()
-
-#     def __str__(self):
-#         return self.who_liked
   
 
 

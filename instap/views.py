@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserRegisterForm,CreatePost
 from django.contrib.auth import login,authenticate
-from .models import Image
+from .models import Image,Comment,Profile
 
 
 @login_required(login_url='')
@@ -30,7 +30,7 @@ def search_users(request):
         searched_users = Profile.search_by_username(search_term)
         message = f"{search_term}"
 
-        return render(request, '',{"message":message,"profile": searched_users})
+        return render(request, 'other-temp/search.html',{"message":message,"profile": searched_users})
 
     else:
         message = "Cant find User"
@@ -42,9 +42,9 @@ def profile(request):
     images = Image.objects.filter(author__pk=current_user.id)
     return render(request,'profile.html',{'current_user':current_user,'images':images})
 
-def signout(request):
-    logout(request)
-    return redirect('login')
+# def signout(request):
+#     logout(request)
+#     return redirect('login')
 
 def createPost(request):
     current_user = request.user

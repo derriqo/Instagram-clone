@@ -1,5 +1,5 @@
 .logname{
-  height: 25px;
+  height: 35px;
   overflow: hidden;
 }
 
@@ -40,6 +40,14 @@
 
 }
 
+.basediv{
+  background-color: #fafafa; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
 
 
 
@@ -48,12 +56,6 @@
 
 
 
-
-
-/* 
-body {
-  background-color: #DECBA4;
-} */
 
 
 

@@ -1,7 +1,7 @@
 {% load static %}
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-<nav class="navbar">
+<nav class="navbar" style="font-family: 'Cabin Sketch', cursive; font-size: 25px; position: fixed;z-index:20; background-color: whitesmoke; width: 100%;">
     {%if request.user.is_authenticated %}
         <section class="logo-section"><a href=""><img class="logo" src=""/></a> 
             
@@ -11,7 +11,7 @@
                     <img class="logoname" src="{% static 'images/insta_text.svg' %}"/></a>
                 </div> 
         </section>
-            <form action="{% 'search_users' %" role="search"  class="search-section">
+            <form action="{% url 'search_users' %}" role="search"  class="search-section" method="GET">
                 <input class="input-search" type="search" name="searchItem" placeholder="search user....."/>
             </form>
             <a href="{% url 'create'%}" class="nav-item nav-link">Create Post</a>
@@ -19,7 +19,7 @@
            
             <!-- <a class="fa fa-heart" href="#"></a> -->
             <a class="fa fa-user" href="/profile/"></a>
-            <a href="">Log out</a>
+            <a href="{% url 'logout' %}">Log out</a>
         </section>
     {% endif %}
 
