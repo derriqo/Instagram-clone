@@ -19,7 +19,7 @@
           <form  action="/accounts/login/" method="post">
             {% csrf_token %}
             {% bootstrap_form form%}
-
+            
             <div class="form-group">
               <input type="submit" class="btn btn-primary btn-sm" value="Login">
             </div>
@@ -30,7 +30,7 @@
 
         </div>
         <div>
-            <p>Need An Account?  <a href="/accounts/register/" >Sign Up Now</a></p>
+            <p style="text-align: center">Need An Account?  <a href="/accounts/register/" >Sign Up Now</a></p>
         </div>
       </div>
 

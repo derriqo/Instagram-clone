@@ -1,28 +1,31 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
 
 class Profile(models.Model):
     profile_pic = models.ImageField(upload_to='profile_pics/',default='profile_pics/')
-    username = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio =models.TextField()
-    follows = models.ManyToManyField(User, related_name='follows',blank = True)
+    follows = models.ManyToManyField(User, related_name='follows')
+
+    def __str__(self):
+        return self.user.username
     
     def save_profile(self):
         self.save()
 
     @classmethod
     def search_by_username(cls,search_term):
-        gram = cls.objects.filter(username__icontains=search_term)
+        gram = cls.objects.filter(user__username__icontains=search_term)
         return news
     
 class Image(models.Model):
+    author = models.ForeignKey(User,related_name='image',on_delete=models.CASCADE,null=True)
     image_pic = models.ImageField(upload_to="images/",blank=True)
-    image_name = models.CharField(max_length=30,null=True)
     image_caption = models.CharField(max_length=50, default="")
-    profile = models.ForeignKey(Profile, null=True)
-    likes = models.PositiveIntegerField(default=0)
-    date = models.DateTimeField(auto_now_add = True,null = True)
+    date = models.DateTimeField(auto_now=True)
+
 
     def save_image(self):
        """
@@ -45,15 +48,42 @@ class Image(models.Model):
        """
        Image.objects.get(id = self.id).delete()
 
-   
-    def get_absolute_url(self): 
-        return reverse('home') 
+
 
     @classmethod
     def get_photos(cls):
        return cls.objects.all()
 
-   
+class Comment(models.Model):
+    image = models.ForeignKey(Image, blank=True, on_delete=models.CASCADE, related_name='comment')
+    commenter = models.ForeignKey(User, blank=True)
+    comment_itself = models.TextField()
+
+    def delete_comment(self):
+        self.delete()
+
+    def save_comment(self):
+        self.save()
+
+    @classmethod
+    def get_comments_on_image(cls, id):
+        the_comments = Comment.objects.filter(image__pk=id)
+        return the_comments
+
+    def __str__(self):
+        return self.comment_itself
+
+
+# class Likes(models.Model):
+#     who_liked = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
+#     liked_image = models.ForeignKey(
+#     Image, on_delete=models.CASCADE, related_name='likes')
+
+#     def save_like(self):
+#         self.save()
+
+#     def __str__(self):
+#         return self.who_liked
   
 
 

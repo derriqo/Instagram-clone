@@ -6,11 +6,54 @@
 .logname img {
   height: 100%;
 }
+.profile{
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  margin:0 auto;
+
+}
+.profile img{
+  width:200px;
+  height: 200px;
+  border-radius:50%;
+}
+.profile-body{
+  margin-left:30px;
+}
+.profile-body p{
+  font-size:20px;
+ 
+}
+.user_image{
+  display:flex;
+  flex-flow: row;
+  justify-content: center;
+  /* margin:0 auto; */
+  /* width:auto; */
+}
+.col-md-8 img{
+  width:200px;
+  height: 200px;
+  margin:15px 10px;
+  
+
+}
 
 
 
 
 
+
+
+
+
+
+
+/* 
+body {
+  background-color: #DECBA4;
+} */
 
 
 

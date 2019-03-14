@@ -1,13 +1,15 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm,CreatePost
 from django.contrib.auth import login,authenticate
+from .models import Image
 
 
 @login_required(login_url='')
 def index(request):
-    return render(request,'index.html')
+    images = Image.objects.all()
+    return render(request,'index.html', {'images': images})
 
 def registration(request):
     if request.method == 'POST':
@@ -36,9 +38,24 @@ def search_users(request):
 
 @login_required(login_url='accounts/')
 def profile(request):
-    return render(request,'profile.html')
+    current_user = request.user
+    images = Image.objects.filter(author__pk=current_user.id)
+    return render(request,'profile.html',{'current_user':current_user,'images':images})
 
 def signout(request):
     logout(request)
     return redirect('login')
+
+def createPost(request):
+    current_user = request.user
+
+    form = CreatePost(request.POST,request.FILES)
+    if request.method=='POST':
+        form = CreatePost(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+        else:
+            form = CreatePost()
+    return render(request,'post.html',{'form':form})
 
