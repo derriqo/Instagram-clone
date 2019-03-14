@@ -1,13 +1,12 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-import datetime as dt
-
 
 class Profile(models.Model):
     profile_pic = models.ImageField(upload_to='profile_pics/',default='profile_pics/')
     username = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_bio = models.TextField(max_length=30)
+    bio =models.TextField()
+    follows = models.ManyToManyField(User, related_name='follows',blank = True)
     
     def save_profile(self):
         self.save()
@@ -17,54 +16,45 @@ class Profile(models.Model):
         gram = cls.objects.filter(username__icontains=search_term)
         return news
     
-    
 class Image(models.Model):
-    username = models.ForeignKey(User, null=True)
-    image_pic = models.ImageField(upload_to="images/")
-    image_name = models.CharField(max_length=50, null=True)
-    title = models.CharField(max_length=100)
-    content = models.TextField()
-    time_created = models.DateTimeField(auto_now=True, auto_now_add=False)
-    time_updated = models.DateTimeField(auto_now=False, auto_now_add=True)
-    date_uploaded = models.DateTimeField(auto_now_add=True)
+    image_pic = models.ImageField(upload_to="images/",blank=True)
+    image_name = models.CharField(max_length=30,null=True)
+    image_caption = models.CharField(max_length=50, default="")
     profile = models.ForeignKey(Profile, null=True)
     likes = models.PositiveIntegerField(default=0)
-
+    date = models.DateTimeField(auto_now_add = True,null = True)
+    
     def save_image(self):
-        '''
-        method to save image
-        '''
-        self.save()
+       """
+       This is the function that we will use to save the instance of this class
+       """
+       self.save()
+
+    def search_by_username(cls, search_term):
+        images = cls.objects.filter(image_caption__icontains=search_term)
+        return images
+   
+    def total_likes(self):
+       return self.likes.count
+
+ 
 
     def delete_image(self):
-        '''
-        method to delete image
-        '''
-        self.delete()
-    
+       """
+       This is the function that we will use to delete the instance of this class
+       """
+       Image.objects.get(id = self.id).delete()
+
+   
+    def get_absolute_url(self): 
+        return reverse('home') 
+
     @classmethod
-    def get_images(cls):
-        images = cls.objects.all()
-        return images
+    def get_photos(cls):
+       return cls.objects.all()
 
-class Comment(models.Model):
-    username = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='user')
-    comment = models.CharField(max_length=80, null=True)
-    date_posted = models.DateTimeField(auto_now=True)
-    image = models.ForeignKey(Image, related_name='comments', null=True)
-
+   
     def __str__(self):
-        return self.comment
-    
-    def save_comment(self):
-        self.save()
-
-    def delete_comment(self):
-        self.delete()
-
-    @classmethod
-    def get_comments_by_images(cls, id):
-        comments = Comments.objects.filter(image__pk = id)
-        return comments
+       return self.name
 
     
