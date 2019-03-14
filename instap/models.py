@@ -23,7 +23,7 @@ class Image(models.Model):
     profile = models.ForeignKey(Profile, null=True)
     likes = models.PositiveIntegerField(default=0)
     date = models.DateTimeField(auto_now_add = True,null = True)
-    
+
     def save_image(self):
        """
        This is the function that we will use to save the instance of this class
@@ -54,7 +54,8 @@ class Image(models.Model):
        return cls.objects.all()
 
    
-    def __str__(self):
-       return self.name
+  
+
+
 
     
