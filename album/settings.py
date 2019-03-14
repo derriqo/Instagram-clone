@@ -92,17 +92,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'album.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME':  'instagram',
-        'USER': 'derrick',
-        'PASSWORD':'database',
-    }
-}
 
 
 # Password validation
@@ -156,3 +145,4 @@ LOGIN_REDIRECT_URL='index'
 
 # Configure Django App for Heroku.
 django_heroku.settings(locals())
+
